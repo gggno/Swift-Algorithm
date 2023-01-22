@@ -8,9 +8,9 @@ var b = 0
 var c = 0
 
 while num > 0 {
-    if (num / 500) > 0 {
-        a += num / 500
-        num -= (500 * (num / 500))
+    if (num / 300) > 0 {
+        a += num / 300
+        num -= (300 * (num / 300))
         continue
     } else if (num / 60) > 0 {
         b += num / 60
