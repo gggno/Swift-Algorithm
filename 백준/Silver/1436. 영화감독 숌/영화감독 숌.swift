@@ -1,26 +1,29 @@
+import Foundation
+
 let n = Int(readLine()!)!
+var result = 665
 var count = 0
-var result = 665 //1번
 
-while true { //2번
-    result += 1 
-    let resultChar = String(result) //3번
-    var 판별 = 0
-    for i in resultChar {
-
-        if i == "6" { //4번
-           판별 += 1
-        }else {
-            판별 = 0
+while true {
+    result += 1
+    let str = String(result)
+    var cnt = 0
+    
+    for c in str {
+        if c == "6" {
+            cnt += 1
+        } else {
+            cnt = 0
         }
-
-        if 판별 == 3 { //5번
+        
+        if cnt == 3 {
             count += 1
         }
     }
-
-    if n == count { //6번
-        print("\(result)")
+    
+    if n == count {
+        print(result)
         break
     }
+    
 }
