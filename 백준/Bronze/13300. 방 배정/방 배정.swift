@@ -20,6 +20,10 @@ for i in 0..<n {
 }
 
 for i in dic {
-    result += (i.value / 2) + (i.value % 2)
+    if i.value > k {
+        result += (i.value / k) + 1
+    } else {
+        result += 1
+    }
 }
 print(result)
