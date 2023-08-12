@@ -31,7 +31,6 @@ func dfs(_ depth: Int) {
 }
 
 func bfs() {
-    var visited: [[Bool]] = Array(repeating: Array(repeating: false, count: m), count: n)
     var temp = graph
     var queue: [(Int, Int)] = []
     
@@ -52,9 +51,8 @@ func bfs() {
             let ny = popy + dy[i]
             
             if nx >= 0 && nx < m && ny >= 0 && ny < n {
-                if temp[ny][nx] == 0 && !visited[ny][nx] {
+                if temp[ny][nx] == 0 {
                     temp[ny][nx] = 2
-                    visited[ny][nx] = true
                     queue.append((ny, nx))
                 }
             }
