@@ -7,28 +7,32 @@ var queue: [Int] = [n]
 var graph: [Int] = Array(repeating: 0, count: 100001)
 var visited: [Bool] = Array(repeating: false, count: 100001)
 
-while !queue.isEmpty {
-    let pop = queue.removeFirst()
+var index = 0
+while index < queue.count {
+    let pop = queue[index]
     
     if pop == k {
+        print(graph[k])
         break
     }
     
-    if pop > 0 && !visited[pop - 1] {
-        queue.append(pop - 1)
-        visited[pop - 1] = true
+    if pop > 0 && !visited[pop-1] {
+        queue.append(pop-1)
+        visited[pop-1] = true
         graph[pop - 1] = graph[pop] + 1
     }
-    if pop < 100000 && !visited[pop + 1] {
-        queue.append(pop + 1)
-        visited[pop + 1] = true
-        graph[pop + 1] = graph[pop] + 1
+    
+    if pop < 100000 && !visited[pop+1] {
+        queue.append(pop+1)
+        visited[pop+1] = true
+        graph[pop+1] = graph[pop] + 1
     }
-    if pop * 2 < 100001 && !visited[2 * pop] {
-        queue.append(2 * pop)
-        visited[2 * pop] = true
-        graph[pop * 2] = graph[pop] + 1
+    
+    if pop * 2 < 100001 && !visited[pop*2] {
+        queue.append(pop*2)
+        visited[pop*2] = true
+        graph[pop*2] = graph[pop] + 1
     }
+    
+    index += 1
 }
-
-print(graph[k])
