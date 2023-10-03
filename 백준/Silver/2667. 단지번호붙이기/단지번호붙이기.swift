@@ -3,43 +3,45 @@ import Foundation
 let n = Int(readLine()!)!
 var graph: [[Int]] = Array(repeating: Array(repeating: 0, count: n), count: n)
 
-let dx = [1, -1, 0, 0]
-let dy = [0, 0, 1, -1]
+let dy = [1, -1, 0, 0]
+let dx = [0, 0, 1, -1]
 
-var allCnt = 0
-var cntArr: [Int] = []
+var apartCnt = 0
+var numCnt: [Int] = []
 
 for i in 0..<n {
-    graph[i] = readLine()!.map{Int(String($0))!}
+    let num = readLine()!.map{Int(String($0))!}
+    graph[i] = num
 }
 
 for y in 0..<n {
     for x in 0..<n {
         
         if graph[y][x] == 1 {
-            allCnt += 1
-            cntArr.append(0)
+            apartCnt += 1
+            numCnt.append(0)
             dfs(y, x)
         }
     }
 }
 
 func dfs(_ y: Int, _ x: Int) {
-    cntArr[allCnt-1] += 1
+    numCnt[apartCnt-1] += 1
     graph[y][x] = 0
     
     for i in 0..<4 {
-        let nx = x + dx[i]
-        let ny = y + dy[i]
+        let nextY = y + dy[i]
+        let nextX = x + dx[i]
         
-        if nx >= 0 && nx < n && ny >= 0 && ny < n {
-            if graph[ny][nx] == 1 {
-                dfs(ny, nx)
+        if nextY >= 0 && nextX >= 0 && nextY < n && nextX < n {
+            if graph[nextY][nextX] == 1 {
+                dfs(nextY, nextX)
             }
         }
     }
 }
-print(allCnt)
-for i in cntArr.sorted() {
+
+print(apartCnt)
+for i in numCnt.sorted() {
     print(i)
 }
