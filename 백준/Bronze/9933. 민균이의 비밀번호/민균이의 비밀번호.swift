@@ -11,7 +11,6 @@ for _ in 0..<n {
     if !state {
         if str == str.reversed() {
             result = "\(str.count) \(str[str.count/2])"
-            arr.append(str)
             state = true
         } else {
             for i in arr {
