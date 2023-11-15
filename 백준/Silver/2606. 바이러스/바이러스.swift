@@ -1,29 +1,29 @@
 import Foundation
 
-var n = Int(readLine()!)!
-let cnt = Int(readLine()!)!
-var graph: [Int:[Int]] = [:]
-var visited: Set<Int> = []
-var stack: [Int] = [1]
+let n = Int(readLine()!)!
+let m = Int(readLine()!)!
+
+var graph: [[Int]] = Array(repeating: [], count: n+1)
+var visited: [Bool] = Array(repeating: false, count: n+1)
+
+var cnt = 0
+
+for _ in 0..<m {
+    let nums = readLine()!.split(separator: " ").map{Int($0)!}
     
-for i in 1...n {
-    graph[i] = []
+    graph[nums[0]].append(nums[1])
+    graph[nums[1]].append(nums[0])
 }
 
-for i in 0..<cnt {
-    let input = readLine()!.split(separator: " ").map{Int($0)!}
-    graph[input[1]]?.append(input[0])
-    graph[input[0]]?.append(input[1])
-}
-
-while !stack.isEmpty {
-    
-    let vertex = stack.popLast()!
-    
-    if !visited.contains(vertex) {
-        visited.insert(vertex)
-        
-        stack += graph[vertex]!
+func dfs(_ num: Int) {
+    if !visited[num] {
+        visited[num] = true
+        cnt += 1
+        for i in graph[num] {
+            dfs(i)
+        }
     }
 }
-print(visited.count-1)
+
+dfs(1)
+print(cnt-1)
