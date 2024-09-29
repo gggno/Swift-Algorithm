@@ -11,9 +11,11 @@ func solution(_ N:Int, _ stages:[Int]) -> [Int] {
                 failCnt += 1
             }
         }
+        
         failDic[i] = Double(failCnt) / Double(arrCnt)
         arrCnt -= failCnt
     }
+    
     let result = failDic.sorted(by: <).sorted{ $0.1 > $1.1 }    
     let last = result.map {$0.key}
 
