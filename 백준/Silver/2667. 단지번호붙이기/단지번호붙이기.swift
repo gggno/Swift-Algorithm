@@ -1,47 +1,49 @@
 import Foundation
 
 let n = Int(readLine()!)!
-var graph: [[Int]] = Array(repeating: Array(repeating: 0, count: n), count: n)
 
-let dy = [1, -1, 0, 0]
-let dx = [0, 0, 1, -1]
+let dx = [1, -1, 0, 0]
+let dy = [0, 0, 1, -1]
 
-var apartCnt = 0
-var numCnt: [Int] = []
+var graph: [[Int]] = []
+var visited: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: n)
 
-for i in 0..<n {
-    let num = readLine()!.map{Int(String($0))!}
-    graph[i] = num
+var cnt = 0
+var result: [Int] = []
+
+for _ in 0..<n {
+    graph.append(readLine()!.map{Int(String($0))!})
 }
 
 for y in 0..<n {
     for x in 0..<n {
-        
-        if graph[y][x] == 1 {
-            apartCnt += 1
-            numCnt.append(0)
+        if !visited[y][x] && graph[y][x] == 1 {
+            cnt += 1
+            result.append(0)
             dfs(y, x)
         }
     }
 }
 
 func dfs(_ y: Int, _ x: Int) {
-    numCnt[apartCnt-1] += 1
-    graph[y][x] = 0
-    
-    for i in 0..<4 {
-        let nextY = y + dy[i]
-        let nextX = x + dx[i]
+    if !visited[y][x] {
+        visited[y][x] = true
+        result[cnt-1] += 1
         
-        if nextY >= 0 && nextX >= 0 && nextY < n && nextX < n {
-            if graph[nextY][nextX] == 1 {
-                dfs(nextY, nextX)
+        for i in 0..<4 {
+            let nx = x + dx[i]
+            let ny = y + dy[i]
+            
+            if 0..<n ~= nx && 0..<n ~= ny {
+                if !visited[ny][nx] && graph[ny][nx] != 0 {
+                    dfs(ny, nx)
+                }
             }
         }
     }
 }
 
-print(apartCnt)
-for i in numCnt.sorted() {
+print(cnt)
+for i in result.sorted() {
     print(i)
 }
