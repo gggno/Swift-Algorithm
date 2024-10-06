@@ -21,7 +21,9 @@ for _ in 0..<m {
 func dfs(_ v: Int) {
     if !visited[v] {
         visited[v] = true
+        
         result1.append(v)
+        
         for i in graph[v] {
             dfs(i)
         }
@@ -29,15 +31,19 @@ func dfs(_ v: Int) {
 }
 
 var queue: [Int] = [v]
+
 func bfs(_ v: Int) {
     while !queue.isEmpty {
         let pop = queue.removeFirst()
+        
         if !visited2[pop] {
             visited2[pop] = true
+            
             result2.append(pop)
             queue += graph[pop]
         }
     }
+    
     print(result2.map{String($0)}.joined(separator: " "))
 }
 
