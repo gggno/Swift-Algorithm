@@ -19,6 +19,7 @@ func dfs(_ num: Int) {
     if !visited[num] {
         visited[num] = true
         cnt += 1
+        
         for i in graph[num] {
             dfs(i)
         }
@@ -26,4 +27,5 @@ func dfs(_ num: Int) {
 }
 
 dfs(1)
+
 print(cnt-1)
