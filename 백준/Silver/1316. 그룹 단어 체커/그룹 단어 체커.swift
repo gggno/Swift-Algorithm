@@ -1,26 +1,30 @@
 import Foundation
 
-let cnt = Int(readLine()!)!
+let n = Int(readLine()!)!
+var cnt = 0
 
-var result = 0
-
-for _ in 0...cnt-1 {
-    let word = readLine()!
-    var cha: [Character] = []
+for _ in 0..<n {
+    let str = readLine()!.map{String($0)}
+    var arr: [String] = [str[0]]
+    var now = str[0]
+    var state = true
     
-    var token = true
-    
-    for j in word {
-        if !cha.contains(j) {
-            cha.append(j)
-        } else if cha.last != j {
-            token = false
+    for j in 1..<str.count {
+        if now == str[j] {
+            continue
+            
+        } else if arr.contains(str[j]) {
+            state = false
+            break
+        } else {
+            arr.append(now)
+            now = str[j]
         }
     }
     
-    if token == true {
-        result += 1
+    if state {
+        cnt += 1
     }
 }
 
-print(result)
+print(cnt)
