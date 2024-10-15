@@ -1,41 +1,44 @@
 import Foundation
 
 let input = readLine()!.split(separator: " ").map{Int($0)!}
+let n = input[0], m = input[1]
 
-let n = input[0]
-let m = input[1]
+let dx = [1, -1, 0, 0]
+let dy = [0, 0, 1, -1]
 
-let dx = [0, 0, -1, 1]
-let dy = [-1, 1, 0, 0]
-var graph: [[Int]] = Array(repeating: Array(repeating: 0, count: m), count: n)
-var distance: [[Int]] = Array(repeating: Array(repeating: 0, count: m), count: n)
+var graph: [[Int]] = []
+var visited: [[Bool]] = Array(repeating: Array(repeating: false, count: m), count: n)
+var dis: [[Int]] = Array(repeating: Array(repeating: 0, count: m), count: n)
 
-for i in 0..<n {
-    graph[i] = readLine()!.map{Int(String($0))!}
+for _ in 0..<n {
+    graph.append(readLine()!.map{Int(String($0))!})
 }
 
-var visited: [[Int]] = Array(repeating: Array(repeating: -1, count: m), count: n)
-var queue: [[Int]] = [[0, 0]]
-
-while !queue.isEmpty {
-    let pop = queue.removeFirst()
+func bfs() {
+    var queue: [(Int, Int)] = [(0, 0)]
     
-    let popx = pop[1]
-    let popy = pop[0]
-    
-    for i in 0..<4 {
-        let nx = popx + dx[i]
-        let ny = popy + dy[i]
+    while !queue.isEmpty {
+        let pop = queue.removeFirst()
         
-        if nx >= 0 && ny >= 0 && nx < m &&  ny < n {
-            if visited[ny][nx] == -1 && graph[ny][nx] == 1 {
-                visited[ny][nx] = 1
-                queue.append([ny, nx])
-                distance[ny][nx] = distance[popy][popx] + 1
+        if !visited[pop.0][pop.1] {
+            visited[pop.0][pop.1] = true
+            
+            for i in 0..<4 {
+                let ny = pop.0 + dy[i]
+                let nx = pop.1 + dx[i]
+                
+                if 0..<n ~= ny && 0..<m ~= nx {
+                    if !visited[ny][nx] && graph[ny][nx] == 1 {
+                        queue.append((ny, nx))
+                        dis[ny][nx] = dis[pop.0][pop.1] + 1
+                    }
+                }
+                
             }
         }
-        
     }
+    
 }
 
-print(distance[n-1][m-1]+1)
+bfs()
+print(dis[n-1][m-1]+1)
