@@ -13,6 +13,7 @@ func solution(_ progresses:[Int], _ speeds:[Int]) -> [Int] {
         
         if prog.first! >= 100 {
             var cnt = 0
+            
             while prog.first! >= 100 {
                 prog.removeFirst()
                 sp.removeFirst()
@@ -25,7 +26,6 @@ func solution(_ progresses:[Int], _ speeds:[Int]) -> [Int] {
             
             result.append(cnt)
         }
-        
     }
     
     return result
