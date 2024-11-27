@@ -4,16 +4,21 @@ func solution(_ s:String) -> Bool
 {
     var cnt = 0
     
-    for i in s {
-        if i == "(" {
+    for c in s {
+        if c == "(" {
             cnt += 1
-        } else if i == ")" {
+        } else if c == ")" {
             cnt -= 1
         }
-
-        if cnt < 0 {return false}
+        
+        if cnt < 0 {
+            return false
+        }
     }
     
-    return cnt == 0 ? true : false
-    
+    if cnt == 0 {
+        return true
+    } else {
+        return false
+    }
 }
