@@ -3,32 +3,36 @@ import Foundation
 let input = readLine()!.split(separator: " ").map{Int($0)!}
 let n = input[0], k = input[1]
 
-var queue: [Int] = [n]
-var graph: [Int] = Array(repeating: 0, count: 100001)
 var visited: [Bool] = Array(repeating: false, count: 100001)
+visited[n] = true
 
-while !queue.isEmpty {
-    let pop = queue.removeFirst()
+var queue: [(Int, Int)] = [(n, 0)]
+var index = 0
+while index <= queue.count {
+    let nn = queue[index].0, cnt = queue[index].1
     
-    if pop == k {
+    if nn == k {
+        print(cnt)
         break
     }
     
-    if pop > 0 && !visited[pop - 1] {
-        queue.append(pop - 1)
-        visited[pop - 1] = true
-        graph[pop - 1] = graph[pop] + 1
+    for i in 0..<3 {
+        var new = 0
+        
+        switch i {
+        case 0:
+            new = nn + 1
+        case 1:
+            new = nn - 1
+        default:
+            new = nn * 2
+        }
+        
+        if new >= 0 && new <= 100000 && !visited[new] {
+            visited[new] = true
+            queue.append((new, cnt+1))
+        }
     }
-    if pop < 100000 && !visited[pop + 1] {
-        queue.append(pop + 1)
-        visited[pop + 1] = true
-        graph[pop + 1] = graph[pop] + 1
-    }
-    if pop * 2 < 100001 && !visited[2 * pop] {
-        queue.append(2 * pop)
-        visited[2 * pop] = true
-        graph[pop * 2] = graph[pop] + 1
-    }
+    
+    index += 1
 }
-
-print(graph[k])
