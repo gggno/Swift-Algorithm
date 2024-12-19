@@ -6,83 +6,61 @@ let dx = [1, -1, 0, 0]
 let dy = [0, 0, 1, -1]
 
 var graph: [[String]] = []
-var graph2: [[String]] = []
-
 var visited: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: n)
-var visited2: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: n)
 
 for _ in 0..<n {
-    let str = readLine()!.map{String($0)}
-    graph.append(str)
-    graph2.append(str)
-}
-
-for y in 0..<n {
-    for x in 0..<n {
-        if graph2[y][x] == "G" {
-            graph2[y][x] = "R"
-        }
-    }
+    graph.append(readLine()!.map{String($0)})
 }
 
 var cnt = 0
-var cnt2 = 0
-var color = ""
-var color2 = ""
-
-// 적록색맹이 아닌 사람
 for y in 0..<n {
     for x in 0..<n {
         if !visited[y][x] {
             visited[y][x] = true
             cnt += 1
-            color = graph[y][x]
-            dfs(y, x)
+            let color = graph[y][x]
+            dfs(y, x, color)
         }
     }
 }
 
-// 적록색맹인 사람
 for y in 0..<n {
     for x in 0..<n {
-        if !visited2[y][x] {
-            visited2[y][x] = true
-            cnt2 += 1
-            color2 = graph2[y][x]
-            dfs2(y, x)
+        if graph[y][x] == "G" {
+            graph[y][x] = "R"
         }
     }
 }
 
-// 적록색맹이 아닌 사람
-func dfs(_ y: Int, _ x: Int) {
+visited = Array(repeating: Array(repeating: false, count: n), count: n)
+
+var cnt2 = 0
+for y in 0..<n {
+    for x in 0..<n {
+        if !visited[y][x] {
+            visited[y][x] = true
+            cnt2 += 1
+            let color = graph[y][x]
+            dfs(y, x, color)
+        }
+    }
+}
+
+func dfs(_ y: Int, _ x: Int, _ color: String) {
+    
     for i in 0..<4 {
         let ny = dy[i] + y
         let nx = dx[i] + x
         
-        if 0..<n ~= nx && 0..<n ~= ny {
+        if 0..<n ~= ny && 0..<n ~= nx {
             if !visited[ny][nx] && graph[ny][nx] == color {
                 visited[ny][nx] = true
-                dfs(ny, nx)
-            }
-        }
-    }
-}
-
-// 적록색맹인 사람
-func dfs2(_ y: Int, _ x: Int) {
-    for i in 0..<4 {
-        let nx = dx[i] + x
-        let ny = dy[i] + y
-        
-        if 0..<n ~= nx && 0..<n ~= ny {
-            if !visited2[ny][nx] && graph2[ny][nx] == color2 {
-                visited2[ny][nx] = true
-                dfs2(ny, nx)
+                dfs(ny, nx, color)
             }
         }
         
     }
 }
 
-print(cnt, cnt2)
+print(cnt)
+print(cnt2)
