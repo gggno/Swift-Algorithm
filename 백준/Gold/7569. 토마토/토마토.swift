@@ -3,8 +3,8 @@ import Foundation
 let input = readLine()!.split(separator: " ").map{Int($0)!}
 let m = input[0], n = input[1], h = input[2]
 
-let dx = [1, 0, -1, 0, 0, 0]
-let dy = [0, 1, 0, -1, 0, 0]
+let dx = [1, -1, 0, 0, 0, 0]
+let dy = [0, 0, 1, -1, 0, 0]
 let dz = [0, 0, 0, 0, 1, -1]
 
 var graph: [[[Int]]] = Array(repeating: [], count: h)
@@ -21,14 +21,13 @@ for z in 0..<h {
     for y in 0..<n {
         for x in 0..<m {
             if graph[z][y][x] == 1 {
-                queue.append((z,y,x))
+                queue.append((z, y, x))
             }
         }
     }
 }
 
 var index = 0
-
 while index < queue.count {
     let z = queue[index].0
     let y = queue[index].1
@@ -39,11 +38,13 @@ while index < queue.count {
         let ny = y + dy[i]
         let nx = x + dx[i]
         
-        if (0..<h) ~= nz && (0..<n) ~= ny && (0..<m) ~= nx && graph[nz][ny][nx] == 0 {
+        if 0..<h ~= nz && 0..<n ~= ny && 0..<m ~= nx && graph[nz][ny][nx] == 0 {
             graph[nz][ny][nx] = graph[z][y][x] + 1
             queue.append((nz, ny, nx))
         }
     }
+    
     index += 1
 }
+
 print(graph.flatMap { $0 }.flatMap { $0 }.contains(0) ? -1 : graph.flatMap { $0 }.flatMap { $0 }.max()! - 1)
