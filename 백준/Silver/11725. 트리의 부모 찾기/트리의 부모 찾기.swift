@@ -1,27 +1,28 @@
 import Foundation
 
-let input = Int(readLine()!)!
+let n = Int(readLine()!)!
+var graph: [[Int]] = Array(repeating: [], count: n+1)
+var visited: [Int] = Array(repeating: 0, count: n+1)
 
-var graph: [[Int]] = Array(repeating: [], count: input+1)
-var visited: [Int] = Array(repeating: 0, count: input+1)
+var dic: [Int: Int] = [:]
 
-for i in 0..<input-1 {
-    let num = readLine()!.split(separator: " ").map{Int($0)!}
-    graph[num[0]].append(num[1])
-    graph[num[1]].append(num[0])
+for _ in 0..<n-1 {
+    let nums = readLine()!.split(separator: " ").map{Int($0)!}
+    graph[nums[0]].append(nums[1])
+    graph[nums[1]].append(nums[0])
 }
 
-func dfs(_ node: Int = 1) {
-    for i in graph[node] {
+func dfs(_ num: Int) {
+    for i in graph[num] {
         if visited[i] == 0 {
-            visited[i] = node
+            visited[i] = num
             dfs(i)
         }
     }
 }
 
-dfs()
+dfs(1)
 
-for i in 2...input {
+for i in 2...n {
     print(visited[i])
 }
