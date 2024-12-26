@@ -1,43 +1,42 @@
 import Foundation
 
 let t = Int(readLine()!)!
+
+let dx = [1,  2,   2,  1,  -1,  -2,  -2,  -1]
+let dy = [2,  1,  -1,  -2, -2,  -1,   1,   2]
+
 var result: [Int] = []
 
 for _ in 0..<t {
     let l = Int(readLine()!)!
-    let start = readLine()!.split(separator: " ").map{Int($0)!}
-    let end = readLine()!.split(separator: " ").map{Int($0)!}
+    var graph: [[Int]] = Array(repeating: Array(repeating: 0, count: l), count: l)
+    let start: [Int] = readLine()!.split(separator: " ").map{Int($0)!}
+    let end: [Int] = readLine()!.split(separator: " ").map{Int($0)!}
     
-    let dx = [-2,   -1,     1,      2,       2,      1,     -1,    -2]
-    let dy = [1,    2,      2,      1,      -1,     -2,     -2,    -1]
+    var queue: [(Int, Int)] = [(start[0], start[1])]
     
-    var graph = Array(repeating: Array(repeating: 0, count: l), count: l)
-    var visited = Array(repeating: Array(repeating: false, count: l), count: l)
-    graph[end[0]][end[1]] = 0
-    
-    var queue = [[start[0], start[1]]]
-    var cnt = 0
-    
-    while !queue.isEmpty {
-        let pop = queue.removeFirst()
+    var index = 0
+    while index < queue.count {
+        let pop = queue[index]
         
-        if pop == end {
-            result.append(graph[pop[0]][pop[1]])
-            continue
+        if (pop.0, pop.1) == (end[0], end[1]) {
+            result.append(graph[pop.0][pop.1])
+            break
         }
         
-        for i in 0..<dx.count {
-            let nx = pop[1] + dx[i]
-            let ny = pop[0] + dy[i]
+        for i in 0..<8 {
+            let ny = pop.0 + dy[i]
+            let nx = pop.1 + dx[i]
             
-            if nx >= 0 && nx < l && ny >= 0 && ny < l {
-                if !visited[ny][nx] {
-                    visited[ny][nx] = true
-                    graph[ny][nx] = graph[pop[0]][pop[1]] + 1
-                    queue.append([ny, nx])
+            if 0..<l ~= nx && 0..<l ~= ny {
+                if graph[ny][nx] == 0 {
+                    queue.append((ny, nx))
+                    graph[ny][nx] = graph[pop.0][pop.1] + 1
                 }
             }
         }
+        
+        index += 1
     }
 }
 
