@@ -6,7 +6,7 @@ func solution(_ numbers:[Int], _ target:Int) -> Int {
     
     func dfs(_ index: Int, _ num: Int) {
         if index == numbers.count {
-            if target == num {
+            if num == target {
                 cnt += 1
             }
             return
