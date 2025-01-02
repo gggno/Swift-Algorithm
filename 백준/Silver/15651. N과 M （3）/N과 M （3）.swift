@@ -4,12 +4,12 @@ let input = readLine()!.split(separator: " ").map{Int($0)!}
 let n = input[0], m = input[1]
 
 var stack: [Int] = []
-var answer = ""
+var result: String = ""
 
 func dfs() {
     if stack.count == m {
-        answer += stack.map{String($0)}.joined(separator: " ")
-        answer += "\n"
+        result += stack.map{String($0)}.joined(separator: " ")
+        result += "\n"
         return
     }
     
@@ -19,5 +19,6 @@ func dfs() {
         stack.removeLast()
     }
 }
+
 dfs()
-print(answer)
+print(result)
