@@ -2,7 +2,7 @@ import Foundation
 
 let input = readLine()!.split(separator: " ").map{Int($0)!}
 let n = input[0], m = input[1]
-let arr = readLine()!.split(separator: " ").map{Int($0)!}.sorted()
+var arr: [Int] = readLine()!.split(separator: " ").map{Int($0)!}.sorted()
 
 var stack: [String] = []
 var answer = ""
