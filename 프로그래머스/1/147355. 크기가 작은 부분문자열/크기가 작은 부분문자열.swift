@@ -1,16 +1,14 @@
 import Foundation
 
 func solution(_ t:String, _ p:String) -> Int {
-    
-    let length = p.count
-    let tt = Array(t)
+    let tArr = Array(t)
     var result = 0
     
-    for i in 0..<tt.count - length + 1 {
+    for i in 0..<t.count - p.count + 1 {
         var str = ""
-
-        for j in i..<i+length {
-            str += String(tt[j])
+        
+        for j in i..<i+p.count {
+            str += String(tArr[j])
         }
         
         if Int(str)! <= Int(p)! {
