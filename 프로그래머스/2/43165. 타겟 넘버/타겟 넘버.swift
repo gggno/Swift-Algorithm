@@ -2,12 +2,12 @@ import Foundation
 
 func solution(_ numbers:[Int], _ target:Int) -> Int {
     
-    var cnt = 0
+    var result = 0
     
     func dfs(_ index: Int, _ num: Int) {
         if index == numbers.count {
             if num == target {
-                cnt += 1
+                result += 1
             }
             return
         }
@@ -18,5 +18,5 @@ func solution(_ numbers:[Int], _ target:Int) -> Int {
     
     dfs(0, 0)
     
-    return cnt
+    return result
 }
