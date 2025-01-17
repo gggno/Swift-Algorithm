@@ -11,12 +11,11 @@ func solution(_ priorities:[Int], _ location:Int) -> Int {
         if p[0] >= p.max()! {
             p.removeFirst()
             cnt += 1
-            if l < 0 {break}
-            
+            if l < 0 { break }
         } else {
             p.append(p.removeFirst())
-            if l < 0 {l = p.count - 1}
-        } 
+            if l < 0 { l = p.count - 1}
+        }    
     }
     
     return cnt
