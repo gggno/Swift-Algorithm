@@ -3,27 +3,27 @@ import Foundation
 func solution(_ progresses:[Int], _ speeds:[Int]) -> [Int] {
     
     var prog = progresses
-    var sp = speeds
+    var spe = speeds
     var result: [Int] = []
     
     while !prog.isEmpty {
-        for i in 0..<prog.count {
-            prog[i] += sp[i]
+        for p in 0..<prog.count {
+            prog[p] += spe[p]
         }
         
-        if prog.first! >= 100 {
-            var cnt = 0
+        var cnt = 0
+        while prog.first! >= 100 {
+            prog.removeFirst()
+            spe.removeFirst()
             
-            while prog.first! >= 100 {
-                prog.removeFirst()
-                sp.removeFirst()
-                cnt += 1
-                
-                if prog.isEmpty {
-                    break
-                }
+            cnt += 1
+            
+            if prog.isEmpty {
+                break
             }
-            
+        }
+        
+        if cnt > 0 {
             result.append(cnt)
         }
     }
