@@ -2,9 +2,9 @@ import Foundation
 
 func solution(_ k:Int, _ tangerine:[Int]) -> Int {
     
-    var dic: [Int:Int] = [:]
-    var cnt: Int = 0
-    var result: Int = 0
+    var cnt = 0
+    var result = 0
+    var dic: [Int: Int] = [:]
     
     for i in tangerine {
         if dic[i] == nil {
@@ -18,7 +18,6 @@ func solution(_ k:Int, _ tangerine:[Int]) -> Int {
         if cnt + i.value <= k {
             cnt += i.value
             result += 1
-        
         } else {
             return result + 1
         }
