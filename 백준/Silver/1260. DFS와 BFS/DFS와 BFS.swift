@@ -16,19 +16,20 @@ for _ in 0..<m {
     graph[nums[1]].sort()
 }
 
-func dfs(num: Int) {
+func dfs(_ num: Int) {
     visited[num] = true
     result.append(num)
     
     for i in graph[num] {
         if !visited[i] {
-            dfs(num: i)
+            dfs(i)
         }
     }
 }
 
 var queue: [Int] = [v]
-func bfs(num: Int) {
+func bfs(_ num: Int) {
+    
     while !queue.isEmpty {
         let pop = queue.removeFirst()
         
@@ -38,14 +39,15 @@ func bfs(num: Int) {
             queue += graph[pop]
         }
     }
-    
 }
 
-dfs(num: v)
+
+
+dfs(v)
 print(result.map{String($0)}.joined(separator: " "))
 
 result = []
 visited = Array(repeating: false, count: n+1)
 
-bfs(num: v)
+bfs(v)
 print(result.map{String($0)}.joined(separator: " "))
