@@ -1,9 +1,9 @@
 import Foundation
 
-var result: Set<Int> = []
+var arr: Set<Int> = []
 
 for _ in 0..<10 {
-    result.insert(Int(readLine()!)! % 42)
+    arr.insert(Int(readLine()!)! % 42)
 }
 
-print(result.count)
+print(arr.count)
