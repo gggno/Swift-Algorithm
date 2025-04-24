@@ -11,18 +11,19 @@ if input != 0 {
         if num < 10 || (Int(result)! != 0 && Int(result)! < 10) {
             result = String(num * 10 + num)
             num = num * 10 + num
-            
             cnt += 1
+            
         } else {
             let a = num / 10
             let b = num % 10
             num = (b*10) + ((a + b) % 10)
             result = String(num)
-            
             cnt += 1
         }
     }
+    
 } else {
     cnt = 1
 }
+
 print(cnt)
