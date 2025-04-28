@@ -3,18 +3,14 @@ import Foundation
 let n = Int(readLine()!)!
 var arr: [Int] = []
 
-for i in 0..<n {
-    let input = Int(readLine()!)!
+for _ in 0..<n {
+    let num = Int(readLine()!)!
     
-    if input == 0 {
-        arr.popLast()
+    if num == 0 {
+        arr.removeLast()
     } else {
-        arr.append(input)
+        arr.append(num)
     }
 }
 
-if arr.isEmpty {
-    print(0)
-} else {
-    print(arr.reduce(0) {$0 + $1})
-}
+print(arr.reduce(0, +))
