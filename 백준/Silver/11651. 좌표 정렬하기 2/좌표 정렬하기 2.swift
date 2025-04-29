@@ -1,14 +1,14 @@
 import Foundation
 
 let n = Int(readLine()!)!
-
-var xy: [(Int, Int)] = []
+var arr: [[Int]] = []
 
 for _ in 0..<n {
-    let input = readLine()!.split(separator: " ").map{Int($0)!}
-    xy.append((input[0], input[1]))
+    arr.append(readLine()!.split(separator: " ").map{Int($0)!})
 }
 
-for i in xy.sorted{$0.0 < $1.0}.sorted{$0.1 < $1.1} {
-    print(i.0, i.1)
+arr = arr.sorted(by: {$0[0] < $1[0]}).sorted(by: {$0[1] < $1[1]})
+
+for i in arr {
+    print(i.map{String($0)}.joined(separator: " "))
 }
